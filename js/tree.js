@@ -1,16 +1,59 @@
 import TreeNode from './node.js';
-import {createCanvas, drawTree} from './canvas.js';
+import CanvasTree from './canvasTree.js';
 
-const INITIAL_X = window.innerWidth / 2;
-const INITIAL_Y = 100;
+export default class BinaryTree extends CanvasTree {
+    constructor(){
+        super();
+        this.root = null;
+        this.elements = [];
+    }
+    insert(value){
+        let newNode = new TreeNode(value);
+        
+        if(this.root === null)
+            this.root = newNode;
+        else
+            this.insertNode(newNode, this.root);
+    }   
 
-let ctx = createCanvas('tree');
+    // Internal calls    
+    insertNode(newNode, otherNode){
 
-let c1 = new TreeNode(ctx, 40, INITIAL_X, INITIAL_Y);
-let c2 = new TreeNode(ctx, 30, ...c1.leftNodePosition);
-let c3 = new TreeNode(ctx, 50, ...c1.rightNodePosition);
+        if(newNode.value < otherNode.value){
+            
+            if(otherNode.leftChild === null)
+                otherNode.leftChild = newNode;
+            else
+                this.insertNode(newNode, otherNode.leftChild);
 
-let nodeArray = [c1, c2, c3];
+        }else{
 
-// Drawing the tree
-drawTree(nodeArray);
+            if(otherNode.rightChild === null)
+                otherNode.rightChild = newNode;
+            else
+                this.insertNode(newNode, otherNode.rightChild);
+        }
+    }
+    computeHeight(node){
+        
+        if(node === null)
+            return 0;
+
+        let heightLeft = this.computeHeight(node.leftChild);
+        let heightRight = this.computeHeight(node.rightChild);
+
+        return Math.max(heightLeft, heightRight) + 1;
+
+    }
+
+    get height(){
+        return this.computeHeight(this.root);
+    }
+
+    // Debug
+    print(){
+        console.log(this.root);
+    } 
+   
+    
+};
