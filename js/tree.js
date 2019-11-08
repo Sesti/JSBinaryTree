@@ -1,9 +1,7 @@
 import TreeNode from './node.js';
-import CanvasTree from './canvasTree.js';
 
-export default class BinaryTree extends CanvasTree {
+export default class BinaryTree {
     constructor(){
-        super();
         this.root = null;
         this.elements = [];
     }
