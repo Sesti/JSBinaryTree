@@ -1,4 +1,3 @@
-
 const createCanvas = () => {
     let canvas = document.getElementById('tree');
     canvas.setAttribute("width", window.innerWidth - 16);
