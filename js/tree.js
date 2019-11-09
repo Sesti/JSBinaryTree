@@ -24,7 +24,7 @@ export default class BinaryTree {
             else
                 this.insertNode(newNode, otherNode.leftChild);
 
-        }else{
+        }else if(newNode.value > otherNode.value){
 
             if(otherNode.rightChild === null)
                 otherNode.rightChild = newNode;

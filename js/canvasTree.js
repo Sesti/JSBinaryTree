@@ -24,19 +24,22 @@ export default class CanvasTree extends BinaryTree{
         this.drawNodesFrom(this.root);
     }
     setNodesPosition(node, posX, posY, side, height){
-        if(side === "left")
-            node.posX = posX - this.computeOffset(height);
-        else
-            node.posX = posX + this.computeOffset(height);
+        let offset = this.computeOffset(height);
 
-        console.log(node.posX);
+        if(side === "left")
+            node.posX = posX - offset;
+        else
+            node.posX = posX + offset;
+
         node.posY = posY;
         node.assignRadius(this.nodeRadius);
 
         if(node.leftChild !== null)
-            this.setNodesPosition(node.leftChild, ...node.leftNodePosition, "left", --height)
+            this.setNodesPosition(node.leftChild, ...node.leftNodePosition, "left", height - 1)
         if(node.rightChild !== null)
-            this.setNodesPosition(node.rightChild, ...node.rightNodePosition, "right", --height)
+            this.setNodesPosition(node.rightChild, ...node.rightNodePosition, "right", height - 1)
+        if(node.leftChild === null && node.rightChild === null)
+            node.posX = side === "left" ? node.posX += offset - 50 : node.posX -= offset - 50;
     
     }
     drawNodesFrom(node){   

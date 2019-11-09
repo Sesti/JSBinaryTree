@@ -7,13 +7,10 @@ export const createCanvas = (id) => {
 
     canvas.setAttribute("width", window.innerWidth - 16);
     canvas.setAttribute("height", window.innerHeight - 16);
-    let ctx = canvas.getContext("2d");
 
-    return ctx;
+    return canvas;
 }
 
-export const drawTree = (nodeArray) => {
-    nodeArray.map((e) => {
-        e.drawNode();
-    })
+export const clearCanvas = (canvas) => {
+    canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
 }
